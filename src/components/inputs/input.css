@@ -1,0 +1,12 @@
+[type="text"] {
+  flex: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none;
+}
+[type="button"] {
+  flex: 0.5;
+}
+input {
+  border: none;
+  padding: 10px;
+}

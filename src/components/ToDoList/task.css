@@ -1,0 +1,46 @@
+.task {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12.2px);
+  -webkit-backdrop-filter: blur(12.2px);
+  border: 1px solid rgba(255, 255, 255, 0.61);
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  overflow: hidden;
+  overflow: hidden;
+}
+.task.done {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+.txt {
+}
+span {
+  display: flex;
+  gap: 10px;
+}
+span div {
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+span div:nth-child(1):hover {
+  background-color: red;
+  color: white;
+}
+span div:nth-child(2):hover {
+  background-color: blue;
+  color: white;
+}
