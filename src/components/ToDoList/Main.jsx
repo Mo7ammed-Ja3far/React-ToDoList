@@ -1,10 +1,15 @@
 import "./main.css";
-import Input from "../inputs/input";
+import "../inputs/input.css";
+// import Input from "../inputs/input";
 import Task from "./Task";
 import { useEffect, useState } from "react";
 const Main = () => {
   const [counter, setCounter] = useState(1);
   const [data, setData] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const [value, setValue] = useState("");
+  const [id, setId] = useState(1);
+  // const [done, setDone] = useState(false);
 
   useEffect(() => {
     const storedTasks = localStorage.getItem("localData");
@@ -22,26 +27,55 @@ const Main = () => {
       localStorage.setItem("counter", counter);
     }
   }, [data, counter]);
+
+  const handleClick = () => {
+    if (!isEdit && value.trim()) {
+      setData([
+        {
+          id: data.length + 1,
+          isDone: false,
+          task: value,
+        },
+        ...data,
+      ]);
+    } else if (isEdit && value.trim()) {
+      const selectedTask = data.find((task) => task.id === id);
+      const updatedData = data.map((task) => {
+        selectedTask.task = value;
+        return task;
+      });
+      setData(updatedData);
+    }
+  };
+
   return (
     <>
       <div className="main">
         <div className="inputs">
-          <Input type="text" id="txt" />
-          <Input
+          <input
+            type="text"
+            onChange={(e) => setValue(e.target.value)}
+            value={value}
+          />
+          <input
             type="button"
-            id="add"
-            value="Add Task"
-            data={data}
-            setData={setData}
-            num={counter}
-            setnum={setCounter}
+            value={isEdit ? "Edit" : "Add"}
+            onClick={handleClick}
           />
         </div>
         <div className="tasks">
           {/* {console.log(data)} */}
           {data.map((task) => {
             return (
-              <Task key={task.id} data={data} task={task} setData={setData} />
+              <Task
+                key={task.id}
+                data={data}
+                task={task}
+                setIsEdit={setIsEdit}
+                setData={setData}
+                setValue={setValue}
+                setId={setId}
+              />
             );
           })}
         </div>

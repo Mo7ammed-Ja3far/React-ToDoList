@@ -3,12 +3,14 @@ import "./task.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faRepeat } from "@fortawesome/free-solid-svg-icons";
 
-const element = [
-  <FontAwesomeIcon icon={faTrash} />,
-  <FontAwesomeIcon icon={faRepeat} />,
-];
-
 const Task = (prop) => {
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    prop.setIsEdit(true);
+    prop.setValue(prop.task.task);
+    prop.setId(prop.task.id);
+  };
+
   return (
     <>
       {/* {console.log(prop.task)} */}
@@ -43,38 +45,10 @@ const Task = (prop) => {
               localStorage.setItem("localData", JSON.stringify(updatedData));
             }}
           >
-            {element[0]}
+            {<FontAwesomeIcon icon={faTrash} />}
           </div>
-          <div
-            className="Edit"
-            onClick={(e) => {
-              e.stopPropagation();
-              const task = document.getElementById(prop.task.id);
-              const inp = document.getElementById("txt");
-              const btn = document.getElementById("add");
-              inp.value = prop.task.task;
-              btn.value = "Edit";
-              btn.onclick = () => {
-                if (btn.value === "Edit") {
-                  prop.setData((prevData) => {
-                    const updatedData = prevData.map((T) => {
-                      if (T.id === prop.task.id) {
-                        return { ...T, task: inp.value };
-                      }
-                      return T;
-                    });
-
-                    localStorage.setItem(
-                      "localData",
-                      JSON.stringify(updatedData)
-                    );
-                    return updatedData;
-                  });
-                }
-              };
-            }}
-          >
-            {element[1]}
+          <div className="Edit" onClick={handleEdit}>
+            {<FontAwesomeIcon icon={faRepeat} />}
           </div>
         </span>
       </div>
